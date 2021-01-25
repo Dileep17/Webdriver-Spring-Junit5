@@ -1,24 +1,20 @@
 package org.learning.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.learning.WebDriverParameterResolver;
-import org.openqa.selenium.WebDriver;
+import org.learning.config.ComponentScanConfig;
+import org.learning.config.CustomScopeRegisteringBean;
+import org.learning.listeners.CustomTestExecutionListener;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-@ExtendWith(WebDriverParameterResolver.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {ComponentScanConfig.class, CustomScopeRegisteringBean.class})
+@TestExecutionListeners(value = {
+        CustomTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class
+})
 public class BaseTest {
-
-    WebDriver driver;
-
-    @BeforeEach
-    void setUp(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    @AfterEach
-    void tearDown(){
-        this.driver.quit();
-    }
 
 }

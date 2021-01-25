@@ -1,10 +1,13 @@
 package org.learning.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class LandingPage extends BasePage {
+@Component
+@Scope(value = "threadScope")
+public class LandingPage extends BasePage{
 
     @FindBy(id = "search_query_top")
     WebElement searchTextField;
@@ -15,16 +18,12 @@ public class LandingPage extends BasePage {
     @FindBy(className = "login")
     WebElement signInLink;
 
-    public LandingPage(WebDriver driver) {
-        super(driver);
-    }
-
     public void open(){
         driver.navigate().to("http://automationpractice.com");
     }
 
     public void searchProduct(String productSearchPhrase){
-        waitForToBeVisible(searchTextField);
+        waitForElementToBeVisible(searchTextField);
         searchTextField.sendKeys(productSearchPhrase);
         searchButton.click();
     }

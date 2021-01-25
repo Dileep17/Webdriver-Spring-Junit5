@@ -1,20 +1,20 @@
 package org.learning.pages;
 
-
 import org.learning.pages.components.CreateNewAccountComponent;
 import org.learning.pages.components.SignInComponent;
-import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class SignInPage extends BasePage {
+@Component
+@Scope(value = "threadScope")
+public class SignInPage  extends BasePage{
 
+    @Autowired
     CreateNewAccountComponent createNewAccountComponent;
-    SignInComponent signInComponent;
 
-    public SignInPage(WebDriver driver) {
-        super(driver);
-        createNewAccountComponent = new CreateNewAccountComponent(driver);
-        signInComponent = new SignInComponent(driver);
-    }
+    @Autowired
+    SignInComponent signInComponent;
 
     public CreateNewAccountComponent getCreateNewAccountComponent() {
         return createNewAccountComponent;

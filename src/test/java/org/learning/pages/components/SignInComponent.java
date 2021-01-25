@@ -2,11 +2,15 @@ package org.learning.pages.components;
 
 import org.learning.pages.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class SignInComponent extends BasePage {
+@Component
+@Scope(value = "threadScope")
+public class SignInComponent  extends BasePage {
+
     @FindBy(id = "login_form")
     WebElement signInSection;
 
@@ -16,16 +20,8 @@ public class SignInComponent extends BasePage {
     @FindBy(id = "passwd")
     WebElement passwordField;
 
-    public SignInComponent(WebDriver driver) {
-        super(driver);
-    }
-
     public boolean isTextDisplayedOnSignInSection(String textToBeDisplayed){
+        waitForTextToBeDisplayed(textToBeDisplayed);
         return signInSection.findElement(By.xpath("//*[contains(text(), '" + textToBeDisplayed+"')]")).isDisplayed();
-    }
-
-    public void login(String userName, String password){
-        emailAddressField.sendKeys(userName);
-        passwordField.sendKeys(password);
     }
 }

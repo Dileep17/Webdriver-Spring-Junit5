@@ -1,29 +1,28 @@
 package org.learning.tests;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.learning.pages.LandingPage;
 import org.learning.pages.ProductPage;
 import org.learning.pages.SearchResultsPage;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.io.IOException;
 
 public class SearchProductsTest extends BaseTest{
 
+    @Autowired
     LandingPage landingPage;
-    SearchResultsPage searchResultsPage;
-    ProductPage productPage;
 
-    @BeforeEach
-    public void setUp(){
-        landingPage = new LandingPage(driver);
-        searchResultsPage = new SearchResultsPage(driver);
-        productPage = new ProductPage(driver);
-    }
+    @Autowired
+    SearchResultsPage searchResultsPage;
+
+    @Autowired
+    ProductPage productPage;
 
     @ParameterizedTest
     @ValueSource(strings = {"shirt", "skirt"})
-    void ShouldBeAbleToSearchAProductAndAddToCart(String productSearchPhrase) {
+    void ShouldBeAbleToSearchAProductAndAddToCart(String productSearchPhrase) throws IOException {
         landingPage.open();
         landingPage.searchProduct(productSearchPhrase);
         searchResultsPage.clickOnFirstSearchResult();

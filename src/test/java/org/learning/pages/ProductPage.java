@@ -1,11 +1,17 @@
 package org.learning.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class ProductPage extends BasePage {
+import java.io.IOException;
+
+@Component
+@Scope(value = "threadScope")
+public class ProductPage  extends BasePage{
 
     @FindBy(css = "#add_to_cart button")
     WebElement addToCartButton;
@@ -13,17 +19,13 @@ public class ProductPage extends BasePage {
     @FindBy(id = "layer_cart")
     WebElement cartLayer;
 
-    public ProductPage(WebDriver driver) {
-        super(driver);
-    }
-
     public void addProductToCart(){
-        waitForToBeVisible(addToCartButton);
-        addToCartButton.click();
+        waitForElementToBeVisible(addToCartButton);
+        new Actions(driver).moveToElement(addToCartButton).click().perform();
     }
 
-    public boolean isTextDisplayedOnCartLayer(String text){
-        waitForToBeVisible(cartLayer);
+    public boolean isTextDisplayedOnCartLayer(String text) throws IOException {
+        waitForElementToBeVisible(cartLayer);
         return cartLayer.findElement(By.xpath("//*[contains(text(), '" + text+"')]")).isDisplayed();
     }
 }
