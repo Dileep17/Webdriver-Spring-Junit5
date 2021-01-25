@@ -7,3 +7,6 @@ Replace chromedriver at `src/test/resources/drivers/chromedriver` to support chr
 
 ## Running tests
 $ mvn clean test
+
+## Parallel execution
+Edit junit5 parallel execution config at `src/test/resources/junit-platform.properties`
